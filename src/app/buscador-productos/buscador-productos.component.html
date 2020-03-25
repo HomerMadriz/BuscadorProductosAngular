@@ -1,0 +1,32 @@
+<h1>Buscar Productos</h1>
+
+<input type="text" name="buscar" id="buscador" [(ngModel)]="busqueda" (keydown.enter)="buscar()"> 
+<a 
+    name="" 
+    id="" 
+    class="btn btn-danger"
+    href="#"
+    role="button"
+    (click)="buscar()">Buscar productos</a><br>
+<small *ngIf="busqueda.length > 0">buscando: {{busqueda}}</small><br>
+
+<input type="checkbox" (click)="existencia()" name="" id="ext"><label for="ext">Solo en existencia</label><br>
+<input type="checkbox" (click)="order()" name="" id="orden"><label for="orden">Ordenar por precio (menor a mayor)</label><br>
+<input type="checkbox" (click)="resaltar()" name="" id="res"><label for="res">Resaltar existencia mayor a 3</label><br>
+
+<div *ngIf="resBusqueda.length <= 0" class="alert alert-danger" role="alert">
+    <p><strong>Ningún producto concuerda con la búsqueda</strong></p>
+  </div>
+
+<ul *ngIf="resBusqueda.length > 0" class="list-group">
+    <li *ngFor="let item of resBusqueda" class="list-group-item" [class.resaltar] = "resalta && item.existencia > 3" [ngStyle]="{'display' : 'flex'}">
+        <img src="{{item.imagen}}" alt="">
+        <div [ngStyle]="{'position': 'absolute;'}">
+            <strong>{{item.nombre}}</strong><br>
+            Precio (MXN): ${{item.precio}}<br>
+            Marca: {{item.descripcion}}<br>
+            Descripción: {{item.descripcion}}<br>
+            Existencia: {{item.existencia}}<br>
+        </div>
+    </li>
+</ul>
